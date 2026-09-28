@@ -4,7 +4,7 @@ Dep. Variable:            home_margin   R-squared:                       0.135
 Model:                            OLS   Adj. R-squared:                  0.125
 Method:                 Least Squares   F-statistic:                     13.74
 Date:                Mon, 28 Sep 2026   Prob (F-statistic):          7.66e-132
-Time:                        01:37:01   Log-Likelihood:                -22752.
+Time:                        01:38:12   Log-Likelihood:                -22752.
 No. Observations:                5596   AIC:                         4.563e+04
 Df Residuals:                    5531   BIC:                         4.606e+04
 Df Model:                          64                                         
