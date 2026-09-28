@@ -27,11 +27,14 @@ jobs:
       - name: Build figures, notebook, and brief
         run: python src/build_assets.py
 
+      - name: Build geospatial dashboard
+        run: python src/build_dashboard.py
+
       - name: Commit generated artifacts
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add outputs figures notebooks docs/NBA_Travel_Tax_Findings_Brief.pdf
+          git add outputs figures notebooks dashboard data/arena_locations.csv docs/NBA_Travel_Tax_Findings_Brief.pdf
           if git diff --cached --quiet; then
             echo "No generated changes to commit"
           else
