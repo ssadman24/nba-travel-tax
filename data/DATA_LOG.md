@@ -63,9 +63,11 @@ home margin ~ relative SFI
 ```
 
 - One row per non-neutral game
-- HC3 robust standard errors
+- HC3 robust standard errors for the primary specification
+- Two-way clustered robustness check by home team and away team
 - Separate binomial model for home-win probability
 - Early-season games without sufficient lagged-form history are excluded from the main regression
+- Standardized effect size reported using the observed SD of the matchup SFI differential
 
 ## Reproducibility
 
@@ -75,6 +77,7 @@ Run:
 pip install -r requirements.txt
 python src/analysis.py
 python src/build_assets.py
+python src/build_dashboard.py
 ```
 
 The GitHub Actions workflow runs the same build automatically and commits the generated outputs and figures.
