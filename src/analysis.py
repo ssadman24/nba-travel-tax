@@ -6,6 +6,8 @@ from zoneinfo import ZoneInfo
 import numpy as np, pandas as pd, requests
 import statsmodels.formula.api as smf
 import statsmodels.api as sm
+from statsmodels.stats.sandwich_covariance import cov_cluster_2groups
+from scipy.stats import norm
 
 YEARS=[2021,2022,2023,2024,2025]
 LABELS={2021:"2020-21",2022:"2021-22",2023:"2022-23",2024:"2023-24",2025:"2024-25"}
@@ -166,13 +168,31 @@ aud=pd.DataFrame(audit); aud.to_csv(OUT/"audit.csv",index=False); print(aud.to_s
 
 mod=gm.dropna(subset=["home_margin","friction_diff","strength_diff"]).copy()
 f="home_margin ~ friction_diff + strength_diff + C(season) + C(home_team_abbreviation) + C(away_team_abbreviation)"
-ols=smf.ols(f,data=mod).fit(cov_type="HC3")
+ols_base=smf.ols(f,data=mod).fit()
+ols=ols_base.get_robustcov_results(cov_type="HC3")
 logit=smf.glm(f.replace("home_margin","home_win"),data=mod,family=sm.families.Binomial()).fit(cov_type="HC3")
 
-coef=float(ols.params["friction_diff"]); p=float(ols.pvalues["friction_diff"]); ci=ols.conf_int().loc["friction_diff"].tolist()
+coef_idx=ols_base.model.exog_names.index("friction_diff")
+coef=float(ols_base.params["friction_diff"])
+p=float(ols.pvalues[coef_idx])
+ci=ols.conf_int()[coef_idx].tolist()
+
+home_codes=pd.factorize(mod.home_team_abbreviation)[0]
+away_codes=pd.factorize(mod.away_team_abbreviation)[0]
+cluster_cov=cov_cluster_2groups(ols_base,home_codes,away_codes)[0]
+cluster_se=float(np.sqrt(cluster_cov[coef_idx,coef_idx]))
+cluster_z=float(coef/cluster_se)
+cluster_p=float(2*(1-norm.cdf(abs(cluster_z))))
+cluster_ci=[float(coef-1.96*cluster_se),float(coef+1.96*cluster_se)]
+
+friction_diff_sd=float(mod.friction_diff.std(ddof=0))
+ols_1sd_effect=float(coef*friction_diff_sd)
+
 lc=float(logit.params["friction_diff"]); lp=float(logit.pvalues["friction_diff"]); orci=np.exp(logit.conf_int().loc["friction_diff"]).tolist()
 m1=mod.copy(); m1["friction_diff"]=m1.friction_diff+1
 ame=float((logit.predict(m1)-logit.predict(mod)).mean())
+msd=mod.copy(); msd["friction_diff"]=msd.friction_diff+friction_diff_sd
+ame_1sd=float((logit.predict(msd)-logit.predict(mod)).mean())
 
 road=df[(df.is_home.eq(0)) & (df.neutral_site.eq(0))].copy()
 road["decile"]=pd.qcut(road.sfi_pct,10,labels=False,duplicates="drop")+1
@@ -182,12 +202,26 @@ team=df.groupby("team_abbreviation").agg(games=("game_id","size"),total_travel_k
 result={
  "games":int(df.game_id.nunique()),"non_neutral_paired_games":int(gm.game_id.nunique()),"neutral_games":int(df.loc[df.neutral_site.eq(1),"game_id"].nunique()),"team_game_rows":int(len(df)),"model_games":int(len(mod)),
  "ols_coef":coef,"ols_p":p,"ols_ci":ci,
- "logit_odds_ratio":float(np.exp(lc)),"logit_p":lp,"logit_or_ci":orci,"avg_marginal_win_prob_change":ame,
+ "clustered_se":cluster_se,"clustered_p":cluster_p,"clustered_ci":cluster_ci,
+ "friction_diff_sd":friction_diff_sd,"ols_1sd_effect":ols_1sd_effect,
+ "logit_odds_ratio":float(np.exp(lc)),"logit_p":lp,"logit_or_ci":orci,
+ "avg_marginal_win_prob_change":ame,"avg_marginal_win_prob_change_1sd":ame_1sd,
  "road_low_decile":dec.iloc[0].to_dict(),"road_high_decile":dec.iloc[-1].to_dict(),
  "top_friction_teams":team.head(10).to_dict("records")
 }
 (OUT/"findings.json").write_text(json.dumps(result,indent=2))
 dec.to_csv(OUT/"road_deciles.csv",index=False); team.to_csv(OUT/"team_burden.csv",index=False)
 mod[["game_id","season","game_date","home_team_abbreviation","away_team_abbreviation","home_margin","home_win","friction_diff","friction_pct_diff","strength_diff"]].to_csv(OUT/"model_games.csv",index=False)
-(OUT/"ols.txt").write_text(ols.summary().as_text()); (OUT/"logit.txt").write_text(logit.summary().as_text())
+(OUT/"ols.txt").write_text(ols.summary().as_text())
+(OUT/"ols_two_way_clustered.txt").write_text(
+    "Two-way clustered robustness check (home team x away team)\n"
+    f"friction_diff coefficient: {coef:.6f}\n"
+    f"clustered SE: {cluster_se:.6f}\n"
+    f"z: {cluster_z:.6f}\n"
+    f"p-value: {cluster_p:.8f}\n"
+    f"95% CI: [{cluster_ci[0]:.6f}, {cluster_ci[1]:.6f}]\n"
+    f"SD of friction differential: {friction_diff_sd:.6f}\n"
+    f"Effect per 1 SD friction differential: {ols_1sd_effect:.6f} points\n"
+)
+(OUT/"logit.txt").write_text(logit.summary().as_text())
 print("RESULT_JSON",json.dumps(result),flush=True)
