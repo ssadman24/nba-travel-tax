@@ -36,5 +36,6 @@ jobs:
             echo "No generated changes to commit"
           else
             git commit -m "Rebuild verified NBA analysis outputs [skip ci]"
+            git pull --rebase origin main
             git push
           fi
