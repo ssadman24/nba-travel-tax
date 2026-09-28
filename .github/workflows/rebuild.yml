@@ -34,15 +34,32 @@ jobs:
       - name: Build geospatial dashboard
         run: python src/build_dashboard.py
 
-      - name: Commit generated artifacts
+      - name: Validate generated project artifacts
         run: |
-          git config user.name "github-actions[bot]"
-          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add outputs figures notebooks dashboard data/arena_locations.csv docs/NBA_Travel_Tax_Findings_Brief.pdf
-          if git diff --cached --quiet; then
-            echo "No generated changes to commit"
-          else
-            git commit -m "Rebuild verified NBA analysis outputs [skip ci]"
-            git pull --rebase origin main
-            git push
-          fi
+          test -f outputs/findings.json
+          test -f outputs/ols_two_way_clustered.txt
+          test -f figures/arena_geography.svg
+          test -f dashboard/index.html
+          test -f data/arena_locations.csv
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          f=json.loads(Path("outputs/findings.json").read_text())
+          assert f["games"] == 6000
+          assert f["team_game_rows"] == 12000
+          assert f["model_games"] == 5596
+          assert f["clustered_p"] < 0.001
+          print("Validated:", f["games"], "games;", f["team_game_rows"], "team-game rows")
+          PY
+
+      - name: Upload rebuilt portfolio artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: nba-travel-tax-rebuild
+          path: |
+            outputs/
+            figures/
+            dashboard/
+            data/arena_locations.csv
+            notebooks/
+            docs/NBA_Travel_Tax_Findings_Brief.pdf
