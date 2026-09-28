@@ -1,0 +1,80 @@
+                 Generalized Linear Model Regression Results                  
+==============================================================================
+Dep. Variable:               home_win   No. Observations:                 5596
+Model:                            GLM   Df Residuals:                     5531
+Model Family:                Binomial   Df Model:                           64
+Link Function:                  Logit   Scale:                          1.0000
+Method:                          IRLS   Log-Likelihood:                -3546.1
+Date:                Mon, 28 Sep 2026   Deviance:                       7092.2
+Time:                        01:25:24   Pearson chi2:                 5.59e+03
+No. Iterations:                     4   Pseudo R-squ. (CS):             0.1018
+Covariance Type:                  HC3                                         
+====================================================================================================
+                                       coef    std err          z      P>|z|      [0.025      0.975]
+----------------------------------------------------------------------------------------------------
+Intercept                            0.4667      0.234      1.990      0.047       0.007       0.926
+C(season)[T.2021-22]                -0.0196      0.092     -0.213      0.832      -0.200       0.161
+C(season)[T.2022-23]                 0.1552      0.093      1.673      0.094      -0.027       0.337
+C(season)[T.2023-24]                -0.0293      0.091     -0.320      0.749      -0.209       0.150
+C(season)[T.2024-25]                 0.0042      0.092      0.046      0.963      -0.176       0.184
+C(home_team_abbreviation)[T.BKN]    -0.2111      0.216     -0.976      0.329      -0.635       0.213
+C(home_team_abbreviation)[T.BOS]     0.4663      0.232      2.011      0.044       0.012       0.921
+C(home_team_abbreviation)[T.CHA]    -0.6864      0.223     -3.082      0.002      -1.123      -0.250
+C(home_team_abbreviation)[T.CHI]    -0.2961      0.220     -1.345      0.179      -0.728       0.135
+C(home_team_abbreviation)[T.CLE]     0.1764      0.225      0.783      0.434      -0.265       0.618
+C(home_team_abbreviation)[T.DAL]    -0.0326      0.221     -0.147      0.883      -0.466       0.401
+C(home_team_abbreviation)[T.DEN]     0.2988      0.233      1.285      0.199      -0.157       0.755
+C(home_team_abbreviation)[T.DET]    -0.8685      0.227     -3.833      0.000      -1.313      -0.424
+C(home_team_abbreviation)[T.GSW]     0.3282      0.228      1.440      0.150      -0.119       0.775
+C(home_team_abbreviation)[T.HOU]    -0.3993      0.220     -1.816      0.069      -0.830       0.032
+C(home_team_abbreviation)[T.IND]    -0.2710      0.219     -1.236      0.216      -0.701       0.159
+C(home_team_abbreviation)[T.LAC]     0.2345      0.226      1.040      0.298      -0.207       0.676
+C(home_team_abbreviation)[T.LAL]     0.1014      0.222      0.456      0.649      -0.335       0.537
+C(home_team_abbreviation)[T.MEM]     0.0069      0.218      0.032      0.975      -0.421       0.435
+C(home_team_abbreviation)[T.MIA]    -0.0486      0.220     -0.221      0.825      -0.481       0.383
+C(home_team_abbreviation)[T.MIL]     0.3938      0.232      1.700      0.089      -0.060       0.848
+C(home_team_abbreviation)[T.MIN]    -0.1484      0.225     -0.659      0.510      -0.590       0.293
+C(home_team_abbreviation)[T.NOP]    -0.2824      0.219     -1.287      0.198      -0.712       0.148
+C(home_team_abbreviation)[T.NYK]    -0.1130      0.220     -0.515      0.607      -0.544       0.318
+C(home_team_abbreviation)[T.OKC]    -0.0647      0.218     -0.297      0.766      -0.491       0.362
+C(home_team_abbreviation)[T.ORL]    -0.4126      0.221     -1.870      0.061      -0.845       0.020
+C(home_team_abbreviation)[T.PHI]    -0.0135      0.221     -0.061      0.951      -0.446       0.419
+C(home_team_abbreviation)[T.PHX]     0.2296      0.225      1.021      0.307      -0.211       0.670
+C(home_team_abbreviation)[T.POR]    -0.5301      0.219     -2.418      0.016      -0.960      -0.100
+C(home_team_abbreviation)[T.SAC]    -0.3694      0.223     -1.660      0.097      -0.806       0.067
+C(home_team_abbreviation)[T.SAS]    -0.6581      0.224     -2.936      0.003      -1.098      -0.219
+C(home_team_abbreviation)[T.TOR]    -0.2948      0.218     -1.351      0.177      -0.723       0.133
+C(home_team_abbreviation)[T.UTA]    -0.0563      0.222     -0.254      0.800      -0.491       0.378
+C(home_team_abbreviation)[T.WAS]    -0.7530      0.224     -3.363      0.001      -1.192      -0.314
+C(away_team_abbreviation)[T.BKN]    -0.2946      0.225     -1.311      0.190      -0.735       0.146
+C(away_team_abbreviation)[T.BOS]    -0.6657      0.223     -2.981      0.003      -1.103      -0.228
+C(away_team_abbreviation)[T.CHA]     0.1760      0.231      0.762      0.446      -0.277       0.629
+C(away_team_abbreviation)[T.CHI]    -0.2362      0.219     -1.078      0.281      -0.666       0.193
+C(away_team_abbreviation)[T.CLE]    -0.1967      0.215     -0.913      0.361      -0.619       0.226
+C(away_team_abbreviation)[T.DAL]    -0.4083      0.223     -1.833      0.067      -0.845       0.028
+C(away_team_abbreviation)[T.DEN]    -0.5581      0.224     -2.495      0.013      -0.996      -0.120
+C(away_team_abbreviation)[T.DET]     0.2802      0.229      1.224      0.221      -0.168       0.729
+C(away_team_abbreviation)[T.GSW]    -0.2143      0.217     -0.985      0.324      -0.641       0.212
+C(away_team_abbreviation)[T.HOU]     0.2128      0.219      0.971      0.332      -0.217       0.643
+C(away_team_abbreviation)[T.IND]    -0.2312      0.225     -1.026      0.305      -0.673       0.210
+C(away_team_abbreviation)[T.LAC]    -0.4666      0.216     -2.160      0.031      -0.890      -0.043
+C(away_team_abbreviation)[T.LAL]    -0.2564      0.220     -1.163      0.245      -0.688       0.176
+C(away_team_abbreviation)[T.MEM]    -0.3907      0.217     -1.802      0.072      -0.816       0.034
+C(away_team_abbreviation)[T.MIA]    -0.4011      0.218     -1.837      0.066      -0.829       0.027
+C(away_team_abbreviation)[T.MIL]    -0.4336      0.219     -1.977      0.048      -0.863      -0.004
+C(away_team_abbreviation)[T.MIN]    -0.4329      0.220     -1.968      0.049      -0.864      -0.002
+C(away_team_abbreviation)[T.NOP]    -0.0456      0.220     -0.208      0.835      -0.476       0.385
+C(away_team_abbreviation)[T.NYK]    -0.5377      0.222     -2.419      0.016      -0.973      -0.102
+C(away_team_abbreviation)[T.OKC]    -0.3208      0.221     -1.451      0.147      -0.754       0.113
+C(away_team_abbreviation)[T.ORL]     0.0509      0.227      0.225      0.822      -0.393       0.495
+C(away_team_abbreviation)[T.PHI]    -0.4666      0.218     -2.141      0.032      -0.894      -0.040
+C(away_team_abbreviation)[T.PHX]    -0.4568      0.219     -2.084      0.037      -0.886      -0.027
+C(away_team_abbreviation)[T.POR]     0.0579      0.221      0.262      0.793      -0.375       0.491
+C(away_team_abbreviation)[T.SAC]    -0.3750      0.219     -1.712      0.087      -0.804       0.054
+C(away_team_abbreviation)[T.SAS]     0.0791      0.228      0.347      0.729      -0.368       0.526
+C(away_team_abbreviation)[T.TOR]     0.0268      0.224      0.119      0.905      -0.413       0.466
+C(away_team_abbreviation)[T.UTA]     0.1557      0.220      0.708      0.479      -0.275       0.587
+C(away_team_abbreviation)[T.WAS]     0.2233      0.227      0.985      0.325      -0.221       0.668
+friction_diff                       -0.1785      0.054     -3.291      0.001      -0.285      -0.072
+strength_diff                        1.3153      0.109     12.087      0.000       1.102       1.529
+====================================================================================================

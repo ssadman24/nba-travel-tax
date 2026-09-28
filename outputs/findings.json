@@ -1,0 +1,126 @@
+{
+  "games": 6000,
+  "non_neutral_paired_games": 5991,
+  "neutral_games": 9,
+  "team_game_rows": 12000,
+  "model_games": 5596,
+  "ols_coef": -1.3470733608894037,
+  "ols_p": 0.00023256402846024996,
+  "ols_ci": [
+    -2.064380199854224,
+    -0.6297665219245832
+  ],
+  "logit_odds_ratio": 0.836505256065191,
+  "logit_p": 0.0009976880804376037,
+  "logit_or_ci": [
+    0.7521373887530762,
+    0.930336736197558
+  ],
+  "avg_marginal_win_prob_change": -0.03981372221109132,
+  "road_low_decile": {
+    "decile": 1.0,
+    "games": 600.0,
+    "win_pct": 0.445,
+    "avg_margin": -1.6183333333333334,
+    "avg_travel_km": 724.7197411143723
+  },
+  "road_high_decile": {
+    "decile": 10.0,
+    "games": 599.0,
+    "win_pct": 0.3789649415692821,
+    "avg_margin": -4.268781302170284,
+    "avg_travel_km": 1600.436755550091
+  },
+  "top_friction_teams": [
+    {
+      "team_abbreviation": "DEN",
+      "games": 400,
+      "total_travel_km": 360568.570649078,
+      "avg_friction_pct": 58.97226456639566,
+      "back_to_backs": 67,
+      "win_pct": 0.6375,
+      "avg_margin": 3.9175
+    },
+    {
+      "team_abbreviation": "UTA",
+      "games": 400,
+      "total_travel_km": 345439.72085417976,
+      "avg_friction_pct": 55.69991954607046,
+      "back_to_backs": 69,
+      "win_pct": 0.465,
+      "avg_margin": -0.1975
+    },
+    {
+      "team_abbreviation": "SAC",
+      "games": 400,
+      "total_travel_km": 370591.1478251572,
+      "avg_friction_pct": 52.38780628952123,
+      "back_to_backs": 76,
+      "win_pct": 0.4875,
+      "avg_margin": -0.785
+    },
+    {
+      "team_abbreviation": "GSW",
+      "games": 400,
+      "total_travel_km": 379916.37291669956,
+      "avg_friction_pct": 52.19551292908763,
+      "back_to_backs": 76,
+      "win_pct": 0.575,
+      "avg_margin": 2.9075
+    },
+    {
+      "team_abbreviation": "LAC",
+      "games": 400,
+      "total_travel_km": 365243.70776874974,
+      "avg_friction_pct": 52.185998193315264,
+      "back_to_backs": 74,
+      "win_pct": 0.585,
+      "avg_margin": 2.8475
+    },
+    {
+      "team_abbreviation": "POR",
+      "games": 400,
+      "total_travel_km": 376935.063629616,
+      "avg_friction_pct": 52.16149785456187,
+      "back_to_backs": 73,
+      "win_pct": 0.3975,
+      "avg_margin": -4.78
+    },
+    {
+      "team_abbreviation": "PHX",
+      "games": 400,
+      "total_travel_km": 354851.07555028144,
+      "avg_friction_pct": 52.04528991644084,
+      "back_to_backs": 73,
+      "win_pct": 0.6125,
+      "avg_margin": 3.0225
+    },
+    {
+      "team_abbreviation": "LAL",
+      "games": 400,
+      "total_travel_km": 346162.96377556893,
+      "avg_friction_pct": 51.32497741644083,
+      "back_to_backs": 66,
+      "win_pct": 0.5375,
+      "avg_margin": 0.3675
+    },
+    {
+      "team_abbreviation": "DAL",
+      "games": 400,
+      "total_travel_km": 336993.8781766323,
+      "avg_friction_pct": 51.14792372402891,
+      "back_to_backs": 68,
+      "win_pct": 0.5525,
+      "avg_margin": 1.3075
+    },
+    {
+      "team_abbreviation": "MIN",
+      "games": 400,
+      "total_travel_km": 374017.6144638031,
+      "avg_friction_pct": 51.090946815718155,
+      "back_to_backs": 70,
+      "win_pct": 0.54,
+      "avg_margin": 1.88
+    }
+  ]
+}
