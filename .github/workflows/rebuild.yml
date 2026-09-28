@@ -8,6 +8,10 @@ on:
 permissions:
   contents: write
 
+concurrency:
+  group: nba-rebuild
+  cancel-in-progress: true
+
 jobs:
   rebuild:
     runs-on: ubuntu-latest
