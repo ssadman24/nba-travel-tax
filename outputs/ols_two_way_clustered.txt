@@ -1,0 +1,8 @@
+Two-way clustered robustness check (home team x away team)
+friction_diff coefficient: -1.347073
+clustered SE: 0.378615
+z: -3.557900
+p-value: 0.00037383
+95% CI: [-2.089158, -0.604988]
+SD of friction differential: 0.539957
+Effect per 1 SD friction differential: -0.727361 points
