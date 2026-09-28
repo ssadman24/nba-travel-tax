@@ -4,6 +4,8 @@
 
 **Python · pandas · geospatial distance modeling · statsmodels · Plotly · Streamlit**
 
+**[Open the live interactive dashboard](https://raw.githack.com/ssadman24/nba-travel-tax/main/dashboard/index.html)**
+
 ![Road friction and margin](figures/road_friction_vs_margin.svg)
 
 ## Research question
@@ -32,11 +34,26 @@ Each component is standardized within season and equally weighted. **Game outcom
 In the primary fixed-effects model, a **+1 unit increase in relative SFI** is associated with a **1.35-point lower home-team margin**.
 
 - Estimate: **-1.35 points**
-- 95% CI: **-2.06 to -0.63**
-- p-value: **0.00023**
+- HC3 95% CI: **-2.06 to -0.63**
+- HC3 p-value: **0.00023**
 - Primary model sample: **5,596 games**
 
 A separate win-probability model estimates an average **4.0 percentage-point decline in predicted win probability** for a +1 relative-SFI increase.
+
+Because a full +1 SFI unit is a fairly large matchup shift, I also report a standardized interpretation. The observed SD of the relative SFI differential is **0.540**:
+
+- **+1 SD relative SFI → -0.73 points** in adjusted game margin
+- **+1 SD relative SFI → -2.1 percentage points** in modeled win probability
+
+### Robustness
+
+The main result also survives a more conservative **two-way clustered standard-error check by home team and away team**:
+
+- Clustered SE: **0.379**
+- Clustered 95% CI: **-2.09 to -0.60**
+- Clustered p-value: **0.00037**
+
+That robustness check is saved in `outputs/ols_two_way_clustered.txt`.
 
 Road-game performance also weakens at the extremes:
 
@@ -60,6 +77,10 @@ Examples include:
 
 Nine neutral/global regular-season games are geocoded to their actual host venue and retained in travel calculations, but excluded from the primary home-vs-away regression.
 
+![NBA arena geography](figures/arena_geography.svg)
+
+The **live dashboard** adds an interactive arena map where marker size reflects modeled five-year travel and marker color reflects average SFI percentile.
+
 ## Model design
 
 Primary specification:
@@ -72,7 +93,8 @@ home margin ~ relative SFI
             + away-team fixed effects
 ~~~
 
-- HC3 robust standard errors
+- HC3 robust standard errors for the primary reported specification
+- two-way clustered team-level robustness check
 - 5,991 non-neutral games available for home/away pairing
 - 5,596 games in the primary model after lagged-form requirements
 - separate binomial model for win probability
@@ -92,12 +114,17 @@ home margin ~ relative SFI
 ├── README.md
 ├── app.py
 ├── requirements.txt
+├── dashboard/
+│   └── index.html
 ├── data/
-│   └── DATA_LOG.md
+│   ├── DATA_LOG.md
+│   └── arena_locations.csv
 ├── docs/
+│   ├── METHODOLOGY.md
 │   ├── NBA_Travel_Tax_Findings_Brief.pdf
 │   └── PROJECT_DESCRIPTION.md
 ├── figures/
+│   ├── arena_geography.svg
 │   ├── primary_model_effect.svg
 │   ├── road_friction_vs_margin.svg
 │   ├── team_schedule_friction.svg
@@ -107,12 +134,14 @@ home margin ~ relative SFI
 ├── outputs/
 │   ├── FINDINGS.md
 │   ├── findings.json
+│   ├── ols_two_way_clustered.txt
 │   ├── road_deciles.csv
 │   ├── team_burden.csv
 │   └── model_games.csv
 └── src/
     ├── analysis.py
-    └── build_assets.py
+    ├── build_assets.py
+    └── build_dashboard.py
 ~~~
 
 ## Reproduce
@@ -121,10 +150,11 @@ home margin ~ relative SFI
 pip install -r requirements.txt
 python src/analysis.py
 python src/build_assets.py
+python src/build_dashboard.py
 streamlit run app.py
 ~~~
 
-The GitHub Actions workflow runs the same analysis and asset build, then commits the generated outputs back to the repository.
+The GitHub Actions workflow reruns the five-season analysis and rebuilds the outputs, figures, notebook, PDF, arena map, and live dashboard.
 
 ## Data note
 
